@@ -1,0 +1,29 @@
+version: "3.5"
+
+services:
+  tor:
+    image: wizardrysteamworks/tor-snowflake:latest
+    container_name: tor
+    restart: always
+    # Expose only to host's loopback
+    ports:
+      - "9050:9050"   # Tor SOCKS
+      - "9053:9053"   # Tor control (optional)
+    volumes:
+      - ./tor/etc:/run/tor/config:Z
+      - ./tor/data:/run/tor/data:Z
+
+  psiphon:
+    image: swarupsengupta2007/psiphon:latest
+    container_name: psiphon
+    depends_on:
+      - tor
+    environment:
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - ./psiphon:/config:Z
+    ports:
+      - "1080:1080"   # Psiphon SOCKS
+      - "8080:8080"   # Psiphon HTTP
+    restart: unless-stopped
