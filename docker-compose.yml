@@ -26,6 +26,6 @@ services:
     ports:
       - "1080:1080"   # Psiphon SOCKS
       - "8080:8080"   # Psiphon HTTP
-    restart: unless-stopped
+    restart: always
 
   # Note: VPN Services Such As Wireguard And OpenVPN UDP Can Be Setup Based On Tun2Socks; OpenVPN TCP Has Socks5 Support Itself.
