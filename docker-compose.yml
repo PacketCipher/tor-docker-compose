@@ -26,20 +26,20 @@ services:
       - NET_ADMIN # Required by Tor for some operations, and potentially by HAProxy/Privoxy.
     restart: always
   
-  # psiphon:
-  #   image: swarupsengupta2007/psiphon:latest
-  #   container_name: psiphon
-  #   depends_on:
-  #     - tor
-  #   environment:
-  #     - PUID=1000
-  #     - PGID=1000
-  #   volumes:
-  #     - ./psiphon:/config:Z
-  #   ports:
-  #     - "1080:1080"   # Psiphon SOCKS
-  #     - "8080:8080"   # Psiphon HTTP
-  #   restart: always
+  psiphon:
+    image: swarupsengupta2007/psiphon:latest
+    container_name: psiphon
+    depends_on:
+      - multitor
+    environment:
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - ./psiphon:/config:Z
+    ports:
+      - "1080:1080"   # Psiphon SOCKS
+      - "8080:8080"   # Psiphon HTTP
+    restart: always
 
   # Note: Doesn't Work As Tor Socks5 Doesn't Support UDP Protocol.
   # warp:
