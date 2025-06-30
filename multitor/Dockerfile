@@ -3,22 +3,22 @@ FROM alpine:latest
 
 # Environment variables for package versions or configurations
 ENV BUILD_PACKAGES="build-base openssl-dev ca-certificates wget git" \
-    PACKAGES="tor sudo bash haproxy privoxy procps netcat"
+    PACKAGES="tor snowflake sudo bash haproxy privoxy procps"
 
 # Install build and runtime packages
+RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/community/" >> /etc/apk/repositories
 RUN apk update && \
     apk add --no-cache $BUILD_PACKAGES $PACKAGES && \
     update-ca-certificates
-
-# Clean build packages to reduce image size
-RUN apk del $BUILD_PACKAGES
 
 # Set up application directory
 WORKDIR /usr/src/app
 
 # Install multitor
+ADD "https://api.github.com/repos/PacketCipher/multitor/commits?per_page=1" /usr/src/latest_commit
 RUN git clone https://github.com/PacketCipher/multitor.git .
-RUN ./setup.sh install && \
+RUN chmod +x setup.sh && \
+    ./setup.sh install && \
     # Create log folders required by multitor
     mkdir -p /var/log/multitor/privoxy/ && \
     # Modify HAProxy template to listen on all interfaces within the container

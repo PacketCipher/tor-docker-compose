@@ -1,17 +1,17 @@
 version: "3.5"
 
 services:
-  tor:
-    image: wizardrysteamworks/tor-snowflake:latest
-    container_name: tor
-    restart: always
-    # Expose only to host's loopback
-    ports:
-      - "9050:9050"   # Tor SOCKS
-      - "9053:9053"   # Tor control (optional)
-    volumes:
-      - ./tor/etc:/run/tor/config:Z
-      - ./tor/data:/run/tor/data:Z
+  # tor:
+  #   image: wizardrysteamworks/tor-snowflake:latest
+  #   container_name: tor
+  #   restart: always
+  #   # Expose only to host's loopback
+  #   ports:
+  #     - "9050:9050"   # Tor SOCKS
+  #     - "9053:9053"   # Tor control (optional)
+  #   volumes:
+  #     - ./tor/etc:/run/tor/config:Z
+  #     - ./tor/data:/run/tor/data:Z
 
   multitor:
     build: ./multitor
@@ -19,27 +19,27 @@ services:
     ports:
       - "16379:16379" # Maps host port 16379 to container port 16379 (HAProxy)
     volumes:
-      - ./custom_templates:/usr/src/app/templates # Maps custom templates from host to container
+      - ./multitor/templates:/usr/src/app/templates:Z # Maps custom templates from host to container
     environment:
-      - TOR_INSTANCES=5 # Default number of Tor instances, can be overridden in .env file or by CLI
+      - TOR_INSTANCES=8 # Default number of Tor instances, can be overridden in .env file or by CLI
     cap_add:
       - NET_ADMIN # Required by Tor for some operations, and potentially by HAProxy/Privoxy.
     restart: always
   
-  psiphon:
-    image: swarupsengupta2007/psiphon:latest
-    container_name: psiphon
-    depends_on:
-      - tor
-    environment:
-      - PUID=1000
-      - PGID=1000
-    volumes:
-      - ./psiphon:/config:Z
-    ports:
-      - "1080:1080"   # Psiphon SOCKS
-      - "8080:8080"   # Psiphon HTTP
-    restart: always
+  # psiphon:
+  #   image: swarupsengupta2007/psiphon:latest
+  #   container_name: psiphon
+  #   depends_on:
+  #     - tor
+  #   environment:
+  #     - PUID=1000
+  #     - PGID=1000
+  #   volumes:
+  #     - ./psiphon:/config:Z
+  #   ports:
+  #     - "1080:1080"   # Psiphon SOCKS
+  #     - "8080:8080"   # Psiphon HTTP
+  #   restart: always
 
   # Note: Doesn't Work As Tor Socks5 Doesn't Support UDP Protocol.
   # warp:

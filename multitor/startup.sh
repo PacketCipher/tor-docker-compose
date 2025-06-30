@@ -23,8 +23,7 @@ multitor \
   --user root \
   --socks-port 9000 \
   --control-port 9900 \
-  --proxy privoxy \
-  --haproxy \
+  --proxy socks \
   --verbose \
   --debug > /tmp/multitor.log 2>&1
 
