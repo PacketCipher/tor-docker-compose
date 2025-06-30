@@ -28,4 +28,18 @@ services:
       - "8080:8080"   # Psiphon HTTP
     restart: always
 
-  # Note: VPN Services Such As Wireguard And OpenVPN UDP Can Be Setup Based On Tun2Socks; OpenVPN TCP Has Socks5 Support Itself.
+  # Note: Doesn't Work As Tor Socks5 Doesn't Support UDP Protocol.
+  # warp:
+  #   build: ./warp
+  #   container_name: warp
+  #   depends_on:
+  #     - tor
+  #   ports:
+  #     - "8086:8086"   # WARP SOCKS5 Proxy
+  #   cap_add:
+  #     - NET_ADMIN     # Required to create TUN device and manage routing
+  #   devices:
+  #     - /dev/net/tun  # Required to mount the TUN device
+  #   restart: always
+
+  ### Note: UDP VPN Services Such As Wireguard And OpenVPN UDP Can't Be Used Due to Tor Socks5 Lack Of UDP Support; Only TCP VPNs Such As OpenVPN TCP And SSH Will Work. ###
