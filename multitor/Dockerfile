@@ -2,13 +2,15 @@
 FROM alpine:latest
 
 # Environment variables for package versions or configurations
-ENV BUILD_PACKAGES="build-base openssl-dev ca-certificates wget git" \
-    PACKAGES="tor snowflake sudo bash haproxy privoxy procps"
+ENV BUILD_PACKAGES="build-base openssl-dev ca-certificates wget curl git" \
+    PACKAGES="tor snowflake sudo bash haproxy privoxy procps" \
+    PYTHON_PACKAGES="python3 py3-requests py3-pysocks"
 
 # Install build and runtime packages
+RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/main/" >> /etc/apk/repositories
 RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/community/" >> /etc/apk/repositories
 RUN apk update && \
-    apk add --no-cache $BUILD_PACKAGES $PACKAGES && \
+    apk add --no-cache $BUILD_PACKAGES $PACKAGES $PYTHON_PACKAGES && \
     update-ca-certificates
 
 # Set up application directory
