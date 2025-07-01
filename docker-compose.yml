@@ -17,11 +17,14 @@ services:
     build: ./multitor
     container_name: multitor
     ports:
+      - "16378:16378" # Custom Load-balancer
       - "16379:16379" # Maps host port 16379 to container port 16379 (HAProxy)
+      - "16380:16380" # HAProxy Stats
     volumes:
       - ./multitor/templates:/usr/src/app/templates:Z # Maps custom templates from host to container
     environment:
       - TOR_INSTANCES=8 # Default number of Tor instances, can be overridden in .env file or by CLI
+      - PROXY_MODE=socks # Proxy Mode Options: socks, custom_lb
     cap_add:
       - NET_ADMIN # Required by Tor for some operations, and potentially by HAProxy/Privoxy.
     restart: always
