@@ -18,6 +18,7 @@ echo "Starting multitor with $TOR_INSTANCE_COUNT Tor instances..."
 # HAProxy is enabled by default to provide a single entry point.
 # Logs are redirected to /tmp/multitor.log and then tailed to ensure they go to Docker's log output.
 # The --debug and --verbose flags are included for better insight during runtime.
+# control-port should be socks-port + 900
 multitor \
   --init "$TOR_INSTANCE_COUNT" \
   --user root \

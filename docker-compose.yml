@@ -24,9 +24,10 @@ services:
       - ./multitor/templates:/usr/src/app/templates:Z # Maps custom templates from host to container
     environment:
       ## More Instances = More Untracability + More Chance Of Good Circuits & Less Top_N_Proxies = Better Ping & Balanced Top_N_Proxies = More Speed Due To Good Circuits Concurrency
-      - TOR_INSTANCES=9 # Default number of Tor instances, can be overridden in .env file or by CLI
+      - TOR_INSTANCES=16 # Default number of Tor instances, can be overridden in .env file or by CLI
       - PROXY_MODE=custom_lb # Proxy Mode Options: socks, custom_lb
-      - LB_Top_N_Proxies=3 # number of proxies to roundrobin for custom_lb 
+      - LB_Top_N_Proxies=1 # number of proxies to roundrobin for custom_lb 
+      - LB_Check_Mode=1 # 0 = ping check, 1 = download check
     cap_add:
       - NET_ADMIN # Required by Tor for some operations, and potentially by HAProxy/Privoxy.
     restart: always
