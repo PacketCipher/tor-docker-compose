@@ -2,7 +2,7 @@
 FROM alpine:latest
 
 # Environment variables for package versions or configurations
-ENV BUILD_PACKAGES="build-base openssl-dev ca-certificates wget curl git vim go czmq-dev" \
+ENV BUILD_PACKAGES="build-base openssl-dev ca-certificates wget curl git vim" \
     PACKAGES="tor lyrebird webtunnel snowflake sudo bash haproxy privoxy procps" \
     PYTHON_PACKAGES="python3 py3-requests py3-pysocks py3-stem"
 
@@ -15,11 +15,9 @@ RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/main/" >> /etc/apk/reposito
     update-ca-certificates
 
 # Build and install Conjure Pluggable Transport
-RUN git clone https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/conjure.git /tmp/conjure && \
-    cd /tmp/conjure/client && \
-    go build -o /usr/local/bin/conjure-client && \
-    # Clean up the source code after build
-    rm -rf /tmp/conjure
+RUN wget -O /usr/bin/conjure-client \
+    "https://github.com/PacketCipher/tor-conjure/releases/download/v0.1.0/conjure-client-linux-amd64" && \
+    chmod +x /usr/bin/conjure-client
 
 # Set up application directory
 WORKDIR /usr/src/app
