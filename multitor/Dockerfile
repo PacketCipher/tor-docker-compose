@@ -15,8 +15,8 @@ RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/main/" >> /etc/apk/reposito
     update-ca-certificates
 
 # Build and install Conjure Pluggable Transport
-RUN wget -O /usr/bin/conjure-client \
-    "https://github.com/PacketCipher/tor-conjure/releases/download/v0.1.0/conjure-client-linux-amd64" && \
+RUN wget -qO /usr/bin/conjure-client \
+    "https://github.com/PacketCipher/tor-conjure/releases/download/v0.1.0/conjure-client-linux-amd64-musl" && \
     chmod +x /usr/bin/conjure-client
 
 # Set up application directory
