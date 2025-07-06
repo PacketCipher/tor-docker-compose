@@ -3,12 +3,13 @@ FROM alpine:latest
 
 # Environment variables for package versions or configurations
 ENV BUILD_PACKAGES="build-base openssl-dev ca-certificates wget curl git vim" \
-    PACKAGES="tor snowflake sudo bash haproxy privoxy procps" \
+    PACKAGES="tor lyrebird webtunnel snowflake sudo bash haproxy privoxy procps" \
     PYTHON_PACKAGES="python3 py3-requests py3-pysocks py3-stem"
 
 # Install build and runtime packages
 RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/main/" >> /etc/apk/repositories
 RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/community/" >> /etc/apk/repositories
+RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing/" >> /etc/apk/repositories
 RUN apk update && \
     apk add --no-cache $BUILD_PACKAGES $PACKAGES $PYTHON_PACKAGES && \
     update-ca-certificates
