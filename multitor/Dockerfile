@@ -3,7 +3,7 @@ FROM alpine:latest
 
 # Environment variables for package versions or configurations
 ENV BUILD_PACKAGES="build-base openssl-dev ca-certificates wget curl git vim" \
-    PACKAGES="tor lyrebird webtunnel snowflake sudo bash haproxy privoxy procps" \
+    PACKAGES="tor lyrebird webtunnel meek snowflake sudo bash haproxy privoxy procps" \
     PYTHON_PACKAGES="python3 py3-requests py3-pysocks py3-stem"
 
 # Install build and runtime packages
