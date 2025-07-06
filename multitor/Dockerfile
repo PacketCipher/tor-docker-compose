@@ -2,17 +2,24 @@
 FROM alpine:latest
 
 # Environment variables for package versions or configurations
-ENV BUILD_PACKAGES="build-base openssl-dev ca-certificates wget curl git vim" \
+ENV BUILD_PACKAGES="build-base openssl-dev ca-certificates wget curl git vim go czmq-dev" \
     PACKAGES="tor lyrebird webtunnel snowflake sudo bash haproxy privoxy procps" \
     PYTHON_PACKAGES="python3 py3-requests py3-pysocks py3-stem"
 
 # Install build and runtime packages
-RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/main/" >> /etc/apk/repositories
-RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/community/" >> /etc/apk/repositories
-RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing/" >> /etc/apk/repositories
-RUN apk update && \
+RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/main/" >> /etc/apk/repositories && \
+    echo "https://dl-cdn.alpinelinux.org/alpine/edge/community/" >> /etc/apk/repositories && \
+    echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing/" >> /etc/apk/repositories && \
+    apk update && \
     apk add --no-cache $BUILD_PACKAGES $PACKAGES $PYTHON_PACKAGES && \
     update-ca-certificates
+
+# Build and install Conjure Pluggable Transport
+RUN git clone https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/conjure.git /tmp/conjure && \
+    cd /tmp/conjure/client && \
+    go build -o /usr/local/bin/conjure-client && \
+    # Clean up the source code after build
+    rm -rf /tmp/conjure
 
 # Set up application directory
 WORKDIR /usr/src/app
