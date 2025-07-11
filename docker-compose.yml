@@ -33,12 +33,12 @@ services:
       - NET_ADMIN # Required by Tor for some operations, and potentially by HAProxy/Privoxy.
     restart: always
   
-  dpyproxy:
-    build: ./dpyproxy
-    ports:
-      - "4433:4433" # Proxy-Server
-    restart: always
-    command: ["--frag_size", "20", "--debug", "--port", "4433", "--host", "0.0.0.0"]
+  # dpyproxy:
+  #   build: ./dpyproxy
+  #   ports:
+  #     - "4433:4433" # Proxy-Server
+  #   restart: always
+  #   command: ["--frag_size", "20", "--debug", "--port", "4433", "--host", "0.0.0.0"]
   
   # psiphon:
   #   image: swarupsengupta2007/psiphon:latest
