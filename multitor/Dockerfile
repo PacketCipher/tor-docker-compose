@@ -14,6 +14,11 @@ RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/main/" >> /etc/apk/reposito
     apk add --no-cache $BUILD_PACKAGES $PACKAGES $PYTHON_PACKAGES && \
     update-ca-certificates
 
+# Build and install Snowflake Pluggable Transport
+# RUN wget -qO /usr/bin/snowflake-client \
+#     "https://github.com/PacketCipher/tor-pluggable-snowflake/releases/download/v0.1.0/snowflake-client-linux-amd64-musl" && \
+#     chmod +x /usr/bin/snowflake-client
+
 # Build and install Conjure Pluggable Transport
 RUN wget -qO /usr/bin/conjure-client \
     "https://github.com/PacketCipher/tor-conjure/releases/download/v0.1.0/conjure-client-linux-amd64-musl" && \
