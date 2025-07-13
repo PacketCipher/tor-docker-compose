@@ -25,9 +25,9 @@ services:
     environment:
       ## More Instances = More Untracability + More Chance Of Good Circuits & Less Top_N_Proxies = Better Ping & Balanced Top_N_Proxies = More Speed Due To Good Circuits Concurrency
       ## For Time-Sensitive Stuff Such As Gaming Better To Use Ping Check & For Speed-Sensitive Stuff Better To Use Download Check (TODO: Two Separate Socks5 Server)
-      - TOR_INSTANCES=8 # Default number of Tor instances, can be overridden in .env file or by CLI
+      - TOR_INSTANCES=4 # Default number of Tor instances, can be overridden in .env file or by CLI
       - PROXY_MODE=custom_lb # Proxy Mode Options: socks, custom_lb
-      - LB_Top_N_Proxies=1 # number of proxies to roundrobin for custom_lb 
+      - LB_Top_N_Proxies=2 # number of proxies to roundrobin for custom_lb 
       - LB_Check_Mode=1 # 0 = ping check, 1 = download check
     cap_add:
       - NET_ADMIN # Required by Tor for some operations, and potentially by HAProxy/Privoxy.
@@ -37,9 +37,9 @@ services:
         limits:
           # Hard Ceiling: Never Exceed 1 CPU Cores (Default is No Limit)
           cpus: '1'
-  # reservations:
-  #  # Lower Priority Than Default Processes (Default is 1024)
-  #  cpu_shares: 512
+        reservations:
+          # Lower Priority Than Default Processes (Default is 1024)
+          cpu_shares: 512
   
   # dpyproxy:
   #   build: ./dpyproxy
