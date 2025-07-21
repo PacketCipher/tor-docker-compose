@@ -4,7 +4,7 @@ FROM alpine:latest
 # Environment variables for package versions or configurations
 ENV BUILD_PACKAGES="build-base openssl-dev ca-certificates wget curl git vim" \
     PACKAGES="tor lyrebird webtunnel meek snowflake sudo bash haproxy privoxy procps" \
-    PYTHON_PACKAGES="python3 py3-requests py3-pysocks py3-stem"
+    PYTHON_PACKAGES="python3 py3-requests py3-pysocks py3-stem py3-flask"
 
 # Install build and runtime packages
 RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/main/" >> /etc/apk/repositories && \
