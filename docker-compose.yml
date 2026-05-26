@@ -25,7 +25,7 @@ services:
     environment:
       ## More Instances = More Untracability + More Chance Of Good Circuits & Less Top_N_Proxies = Better Ping & Balanced Top_N_Proxies = More Speed Due To Good Circuits Concurrency
       ## For Time-Sensitive Stuff Such As Gaming Better To Use Ping Check & For Speed-Sensitive Stuff Better To Use Download Check (TODO: Two Separate Socks5 Server)
-      - TOR_INSTANCES=8 # Default number of Tor instances, can be overridden in .env file or by CLI
+      - TOR_INSTANCES=16 # Default number of Tor instances, can be overridden in .env file or by CLI
       - PROXY_MODE=custom_lb # Proxy Mode Options: socks, custom_lb
       - LB_Top_N_Proxies=1 # number of proxies to roundrobin for custom_lb 
       - LB_Check_Mode=1 # 0 = ping check, 1 = download check
@@ -64,12 +64,13 @@ services:
       - "8080:8080"   # Psiphon HTTP
     restart: always
 
-  # Note: Doesn't Work As Tor Socks5 Doesn't Support UDP Protocol.
+  # Note 1: Doesn't Work As Tor Socks5 Doesn't Support UDP Protocol.
+  # Note 2: But It May Work With Psiphon
   # warp:
   #   build: ./warp
   #   container_name: warp
   #   depends_on:
-  #     - tor
+  #     - psiphon
   #   ports:
   #     - "8086:8086"   # WARP SOCKS5 Proxy
   #   cap_add:

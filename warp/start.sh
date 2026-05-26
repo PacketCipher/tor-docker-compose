@@ -20,7 +20,7 @@ ip route add default dev tun0
 
 # 5. Start tun2socks in the background.
 # It captures all traffic from tun0 and forwards it to the Tor SOCKS proxy.
-nohup tun2socks -device tun://tun0 -proxy socks5://tor:9050 &
+nohup tun2socks -device tun://tun0 -proxy socks5://psiphon:1080 &
 
 # 6. Start the warp-plus application.
 # Its traffic will be captured by tun0, processed by tun2socks, and sent to Tor.

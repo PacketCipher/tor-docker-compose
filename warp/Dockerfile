@@ -1,5 +1,5 @@
 # Use a lightweight Debian image as the base
-FROM debian:buster-slim
+FROM debian:bookworm-slim
 
 # Install necessary dependencies for warp-plus and tun2socks
 RUN apt-get update && apt-get install -y --no-install-recommends \
