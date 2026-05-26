@@ -1,17 +1,47 @@
 #!/bin/bash
 
-# Scan
-python3 tor-relay-scanner-1.0.4.pyz --torrc --outfile torrc-template-relay-scanner.cfg --ssl --ssl-data-amount 1 -g 1000 --timeout 10.0 --relay-outfile relays --relay-infile relays --relay-infile-fallback
+set -euo pipefail
 
-# Copy The Results
+# Scan
+python3 tor-relay-scanner-1.0.4.pyz \
+    --torrc \
+    --outfile torrc-template-relay-scanner.cfg \
+    --ssl \
+    --ssl-data-amount 1 \
+    -g 1000 \
+    --timeout 10.0 \
+    --relay-outfile relays \
+    --relay-infile relays \
+    --relay-infile-fallback
+
 SRC_FILE="torrc-template-relay-scanner.cfg"
 DEST_FILE="../../multitor/templates/tor/torrc-template-relay-scanner.cfg"
 
-# Move the file
-mv -f "$SRC_FILE" "$DEST_FILE"
+TMP_FILE="$(mktemp)"
 
-# Append configuration block
-cat <<'EOF' >> "$DEST_FILE"
+# Build final config
+cat > "$TMP_FILE" <<'EOF'
+RunAsDaemon 1
+# CookieAuthentication 0
+SocksBindAddress 127.0.0.1
+# NewCircuitPeriod 15
+# MaxCircuitDirtiness 15
+# NumEntryGuards 8
+# CircuitBuildTimeout 5
+# ExitRelay 0
+# RefuseUnknownExits 0
+ClientOnly 1
+# StrictNodes 1
+# AllowSingleHopCircuits 1
+# KeepalivePeriod 60
+
+EOF
+
+# Append generated relay scanner config
+cat "$SRC_FILE" >> "$TMP_FILE"
+
+# Append static config block
+cat >> "$TMP_FILE" <<'EOF'
 
 # Static Path #
 ExitNodes CBCC85F335E20705F791CFC8685951C90E24134D,E8AD8C4FDC3FE152150C005BB2EAA6A0990B74DF,74C0C2705DB1192C03F19F7CD1BB234843B1A81F
@@ -24,5 +54,14 @@ CircuitBuildTimeout 60
 NewCircuitPeriod 86400
 MaxCircuitDirtiness 86400
 EOF
+
+# Ensure destination directory exists
+mkdir -p "$(dirname "$DEST_FILE")"
+
+# Replace destination file
+mv -f "$TMP_FILE" "$DEST_FILE"
+
+# Cleanup source file
+rm -f "$SRC_FILE"
 
 echo "Updated and moved file to: $DEST_FILE"
