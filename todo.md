@@ -6,6 +6,8 @@
 - implement white ip templates and white domain templates
 - implement snowflake scanner templates
 - implement snowflake scanner scripts
+- implement sdr bridges and templates
+- implement fake tower bridges by replay and mimic of successful packets with rl for realtime adaption
 - implement realtime snowflake scanner and realtime switching of the tunnel to fastest based on ping or download
 - implement realtime rl packet modification with dpi evasion as feedback
 - implement realtime parameters tuning
