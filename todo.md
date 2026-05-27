@@ -1,3 +1,4 @@
 - implement cdn domain fronting templates (akamai, fastly, google, etc)
 - implement cdn domain ip and sni scanner script
+- implement dns tunnel templates
 - implement LB_Algorithm
