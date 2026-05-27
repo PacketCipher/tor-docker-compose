@@ -1,4 +1,7 @@
 - implement cdn domain fronting templates (akamai, fastly, google, etc)
 - implement cdn domain ip and sni scanner script
 - implement dns tunnel templates
+- implement lora and other kinds of satellites templates
+- implement realtime rl packet modification with dpi evasion as feedback
+- implement realtime parameters tuning
 - implement LB_Algorithm
