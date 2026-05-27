@@ -3,6 +3,10 @@
 - implement dns tunnel templates
 - implement lora and other kinds of satellites templates
 - implement mesh networks templates
+- implement white ip templates and white domain templates
+- implement snowflake scanner templates
+- implement snowflake scanner scripts
+- implement realtime snowflake scanner and realtime switching of the tunnel to fastest based on ping or download
 - implement realtime rl packet modification with dpi evasion as feedback
 - implement realtime parameters tuning
 - implement LB_Algorithm
