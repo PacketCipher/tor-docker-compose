@@ -16,4 +16,4 @@
 - implmenet dns scanner with real delay test for dns tunnel templates and conjure templates
 - implement script to replace every static entry and middle and exit nodes in all templates or disable them all
 - implement exotic protocols as bridges (google drive, etc)
-- implement pure snowflake templates directory with each line of bridge as separate template as snowflake doesn't support multi-line bridges and only accept the first line
+- implement pure snowflake templates directory with each line of bridge as separate template as snowflake doesn't support multi-line bridges and only accept the first line (we can mix this with current configs too but reduce multiply of num of instances to 2x even without mixing 2x is sufficient as snowflake usually get connected) (also do this for every bridge client that doesn't support multi-lines of bridges)
