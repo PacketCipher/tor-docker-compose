@@ -14,6 +14,7 @@ services:
   #     - ./tor/data:/run/tor/data:Z
 
   multitor:
+    # Note: rebuild this frequently as newer snowflake clients offer more stealth
     build: ./multitor
     container_name: multitor
     ports:
