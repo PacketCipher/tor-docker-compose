@@ -1,3 +1,4 @@
 tor/data
 psiphon/ca.psiphon.PsiphonTunnel.tunnel-core
 psiphon/custom
+aether/config
