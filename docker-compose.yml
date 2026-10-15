@@ -30,7 +30,7 @@ services:
       - PROXY_MODE=custom_lb # Proxy Mode Options: socks, custom_lb
       - LB_Top_N_Proxies=1 # number of proxies to roundrobin for custom_lb, for networks with high interrupts and dpi the higher number is better but it may affect speed inversely, also for vpn over tor compatibility it might require this to be set to 1
       # - LB_Algorithm=sequential # sequential algorithm will retry each request sequentially sorted by check mode
-      - LB_Check_Mode=0 # 0 = ping check, 1 = download check, ping might be a better choice for networks with high interrupts and dpi
+      - LB_Check_Mode=1 # 0 = ping check, 1 = download check, ping might be a better choice for networks with high interrupts and dpi
     cap_add:
       - NET_ADMIN # Required by Tor for some operations, and potentially by HAProxy/Privoxy.
     restart: always
