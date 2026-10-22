@@ -87,7 +87,7 @@ services:
     volumes:
       - ./aether/config:/config:Z
     ports:
-      - "127.0.0.1:1819:1819"
+      - "1819:1819"
     restart: unless-stopped
 
 
